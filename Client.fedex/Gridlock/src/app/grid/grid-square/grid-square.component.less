@@ -1,26 +1,30 @@
+@borderWidth: 2px;
+
 .square {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border: solid 1px black;
-    position: relative; 
+    width: 80px - (2 * @borderWidth);
+    height: 80px - (2 * @borderWidth);
+    position: relative;
+    background-color: ghostwhite;
+    border: solid @borderWidth darken(ghostwhite, 1%);
 
     &.hover {
-        background-color: lawngreen;
+        border: solid @borderWidth darken(#d1d1ff, 3%);
+        background-color:  #d1d1ff;
+        cursor: pointer;
     }
     &.highlight {
-        background-color: darkblue;
-        border: solid 1px gold;
+        border: solid @borderWidth lighten(#4a4a4a, 3%);
+        background-color: #4a4a4a;
    } 
    
     img {
-        width: 100%;
+        width: calc(100% + (2 * @borderWidth));
         height: auto;
         position: absolute;
-        &.avatar-tile {
-            z-index: 3;
-        }
-        &.monster-tile {
+        top: -1 * @borderWidth;
+        left: -1 * @borderWidth;
+
+        &.character-tile {
             z-index: 2;
         }
         &.background-tile {
