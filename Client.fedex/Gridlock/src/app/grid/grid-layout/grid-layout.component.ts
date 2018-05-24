@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 import { GridSquare } from '../../models/grid-square.model';
+import { MapParser } from '../../map-parser';
 
 
 @Component({
@@ -11,16 +13,20 @@ import { GridSquare } from '../../models/grid-square.model';
 })
 export class GridLayoutComponent implements OnInit {
 
-  @Input('rows') rows: number;
-  @Input('columns') columns: number;
+  @Input('rows') rows = 10;
+  @Input('columns') columns = 10;
 
   public menuItems: MenuItem[];
 
   private _grid: GridSquare[][];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private parser: MapParser) {
+
+  }
 
   ngOnInit() {
+    this.parser.mapStream = this.route.snapshot.data['connection'];
+
     this._grid = [];
 
     for (let r = 0; r < this.rows; r++) {
@@ -33,7 +39,7 @@ export class GridLayoutComponent implements OnInit {
 
     this.menuItems = [];
 
-    this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass'});
+    this.menuItems.push({ label: 'Assign Terrain', icon: 'fa-compass' });
   }
 
 }
