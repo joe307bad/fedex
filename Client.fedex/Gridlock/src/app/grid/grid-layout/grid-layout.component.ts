@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GridSquare } from '../shared/grid-square.model';
+import { GridSquare } from '../../models/grid-square.model';
 
 @Component({
   selector: 'app-grid-layout',
   templateUrl: './grid-layout.component.html',
-  styleUrls: ['./grid-layout.component.css']
+  styleUrls: ['./grid-layout.component.less']
 })
 export class GridLayoutComponent implements OnInit {
 
