@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GridSquare } from '../shared/grid-square.model';
+import { GridSquare } from '../../models/grid-square.model';
 
 @Component({
   selector: 'app-grid-layout',
