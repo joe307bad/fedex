@@ -42,11 +42,24 @@ export class GridLayoutComponent implements OnInit {
 
 
 
+<<<<<<< HEAD
     this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass', items: [
       {label: 'Land 1', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); }}
     ]},
   {separator: true},
   {label: 'Unassign Selected Tiles', icon: 'fa-eraser', command: (event) => { this.unassignTiles(); }});
+=======
+    this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass', 
+      items: [
+        {label: 'Land 1', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); }},
+        {label: 'Land 2', styleClass: 'land2', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_02.png'); }},
+        {label: 'Land 3', styleClass: 'land3', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_03.png'); }},
+        {label: 'Land 4', styleClass: 'land4', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_04.png'); }},
+        {label: 'Land 5', styleClass: 'land5', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_05.png'); }},
+        {label: 'Land 6', styleClass: 'land6', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_06.png'); }}
+      ]
+    });
+>>>>>>> f67878016d23c33e114144b6d2aa68222f6372dc
   }
 
   setTile(gridType: GridType, asset: string) {

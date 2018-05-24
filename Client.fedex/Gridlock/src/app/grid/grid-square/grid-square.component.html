@@ -1,5 +1,5 @@
 <div (click)="select()" (mouseenter)="highlight()" (mouseleave)="unhighlight()" [ngClass]="{'square' : true, 'highlight' : this.tile.selected, 'hover' : _hover}">
-    <img *ngIf="this.tile.type === gridTypes.AVATAR_TYPE" class='avatar-tile' src="{{tile.assetURL}}" />
-    <img *ngIf="this.tile.type === gridTypes.MONSTER_TYPE" class='monster-tile' src="{{tile.assetURL}}" />
+    <img *ngIf="this.tile.type === gridTypes.AVATAR_TYPE" class='character-tile' src="{{tile.assetURL}}" />
+    <img *ngIf="this.tile.type === gridTypes.MONSTER_TYPE" class='character-tile' src="{{tile.assetURL}}" />
     <img *ngIf="this.tile.type === gridTypes.TERRAIN_TYPE" class='background-tile' src="{{tile.assetURL}}" />
 </div>
