@@ -1,3 +1,5 @@
+<p-contextMenu [global]="true" [model]="menuItems"></p-contextMenu>
+
 <div *ngFor="let row of _grid; let r = index">
   <div *ngFor="let col of _grid[r]; let c = index">
     <app-grid-square></app-grid-square>

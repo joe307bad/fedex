@@ -1,3 +1,4 @@
-<div class="square">
-  
+ 
+<div (click)="select()" (mouseenter)="highlight()" (mouseleave)="unhighlight()" [ngClass]="{'square' : true, 'highlight' : _highlighted, 'hover' : _hover}">
+
 </div>
