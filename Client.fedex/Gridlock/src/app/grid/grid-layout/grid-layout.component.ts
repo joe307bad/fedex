@@ -44,7 +44,9 @@ export class GridLayoutComponent implements OnInit {
 
     this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass', items: [
       {label: 'Land 1', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); }}
-    ]});
+    ]},
+  {separator: true},
+  {label: 'Unassign Selected Tiles', icon: 'fa-eraser', command: (event) => { this.unassignTiles(); }});
   }
 
   setTile(gridType: GridType, asset: string) {
@@ -66,6 +68,27 @@ export class GridLayoutComponent implements OnInit {
       tile.type = gridType;
       tile.assetURL = asset;
     });
+  }
+
+  unassignTiles() {
+    let updatedTiles: GridSquare[] = [];
+
+    for (let r = 0 ; r < this._grid.length; r++) {
+      const filteredSquares = _.filter(this._grid[r], function(tile: GridSquare) {
+        return tile.selected;
+      });
+
+      if (filteredSquares.length > 0) {
+        updatedTiles = updatedTiles.concat(filteredSquares);
+      }
+    }
+
+    updatedTiles.forEach(function(tile: GridSquare) {
+      tile.selected = false;
+      tile.type = GridType.UNASSIGNED_TYPE;
+      tile.assetURL = '';
+    });
+
   }
 
 }
