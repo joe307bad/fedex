@@ -19,7 +19,7 @@ export class SignalRService {
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl('http://localhost:49467/mapDefinitionHub')
+      .withUrl('http://localhost:5000/mapDefinitionHub')
       .build();
   }
 
