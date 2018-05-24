@@ -1,22 +1,22 @@
 .square {
     width: 50px;
     height: 50px;
-<<<<<<< HEAD
     background-color: white;
     border: solid 1px black;
-    background-image: url('/Assets.fedex/tile_01.png');
-    &.dirty {
-        
-    }
-    &.grassy {
+    position: relative; 
 
-    }
+    img {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        &.avatar-tile {
+            z-index: 3;
+        }
+        &.monster-tile {
+            z-index: 2;
+        }
+        &.background-tile {
+            z-index: a;
+        }
+    } 
 }
-=======
-    background-color: lightgray;
-    border: solid 1px black;
-    display: block;
-    float: left;
-    
-}
->>>>>>> 3ef24f68e78e1504e16586bd75f54f68eb30b27d
