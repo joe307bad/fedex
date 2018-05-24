@@ -118,7 +118,6 @@ export class GridLayoutComponent implements OnInit {
       tile.assetURL = '';
     });
 
->>>>>>> DanBranch
   }
 
 }
