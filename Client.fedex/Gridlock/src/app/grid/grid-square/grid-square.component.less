@@ -5,6 +5,14 @@
     border: solid 1px black;
     position: relative; 
 
+    &.hover {
+        background-color: lawngreen;
+    }
+    &.highlight {
+        background-color: darkblue;
+        border: solid 1px gold;
+   } 
+   
     img {
         width: 100%;
         height: auto;
@@ -16,7 +24,7 @@
             z-index: 2;
         }
         &.background-tile {
-            z-index: a;
+            z-index: 1;
         }
-    } 
+    }
 }
