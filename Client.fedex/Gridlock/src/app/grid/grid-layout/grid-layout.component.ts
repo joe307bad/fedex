@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 import { GridSquare } from '../../models/grid-square.model';
+import { MapParser } from '../../map-parser';
 import { GridType } from '../../models/grid-type.model';
 
 import * as _ from 'lodash';
@@ -14,18 +16,21 @@ import * as _ from 'lodash';
 })
 export class GridLayoutComponent implements OnInit {
 
-  @Input('rows') rows: number;
-  @Input('columns') columns: number;
+  @Input('rows') rows = 10;
+  @Input('columns') columns = 10;
 
   public menuItems: MenuItem[];
 
   private _grid: GridSquare[][];
-
   private _tileTypes = GridType;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private parser: MapParser) {
+
+  }
 
   ngOnInit() {
+    this.parser.mapStream = this.route.snapshot.data['connection'];
+
     this._grid = [];
 
     for (let r = 0; r < this.rows; r++) {
@@ -41,18 +46,36 @@ export class GridLayoutComponent implements OnInit {
     this.menuItems = [];
 
 
-    this.menuItems.push({label: 'Assign Terrain',
+    this.menuItems.push({
+      label: 'Assign Terrain',
       items: [
-        {label: 'Quicksand', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); }},
-        {label: 'Bluegrass', styleClass: 'land2', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_02.png'); }},
-        {label: 'Ooze', styleClass: 'land3', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_03.png'); }},
-        {label: 'Stone Tile', styleClass: 'land4', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_04.png'); }},
-        {label: 'Lava', styleClass: 'land5', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_05.png'); }},
-        {label: 'Wood Chips', styleClass: 'land6', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_06.png'); }}
+        { label: 'Quicksand', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); } },
+        { label: 'Bluegrass', styleClass: 'land2', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_02.png'); } },
+        { label: 'Ooze', styleClass: 'land3', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_03.png'); } },
+        { label: 'Stone Tile', styleClass: 'land4', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_04.png'); } },
+        { label: 'Lava', styleClass: 'land5', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_05.png'); } },
+        { label: 'Wood Chips', styleClass: 'land6', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_06.png'); } }
       ]
     },
-    {separator: true},
-  {label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.unassignTiles(); }});
+      { separator: true },
+      { label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.unassignTiles(); } },
+      {
+        label: 'Assign Monster',
+        items: [
+          { label: 'Plushie Kappa', styleClass: 'mon1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_01.png'); } },
+          { label: 'Yellow Applemon', styleClass: 'mon2', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_02.png'); } },
+          { label: 'Red Applemon', styleClass: 'mon3', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_03.png'); } }
+        ]
+      },
+      {
+        label: 'Assign Player',
+        items: [
+          { label: 'Fancy Gent', styleClass: 'avatar1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_01.png'); } },
+          { label: 'Unicorn', styleClass: 'avatar2', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_02.png'); } },
+          { label: 'Nom Nom', styleClass: 'avatar3', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_03.png'); } },
+          { label: 'Stegocatus', styleClass: 'avatar4', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_04.png'); } },
+        ]
+      });
   }
 
   setTile(gridType: GridType, asset: string) {
@@ -60,7 +83,7 @@ export class GridLayoutComponent implements OnInit {
     let updatedTiles: GridSquare[] = [];
 
     for (let r = 0; r < this._grid.length; r++) {
-      const newArr = _.filter(this._grid[r], function(tile: GridSquare) {
+      const newArr = _.filter(this._grid[r], function (tile: GridSquare) {
         return tile.selected;
       });
 
@@ -69,7 +92,7 @@ export class GridLayoutComponent implements OnInit {
       }
     }
 
-    updatedTiles.forEach(function(tile: GridSquare) {
+    updatedTiles.forEach(function (tile: GridSquare) {
       tile.selected = false;
       tile.type = gridType;
       tile.assetURL = asset;
@@ -79,8 +102,8 @@ export class GridLayoutComponent implements OnInit {
   unassignTiles() {
     let updatedTiles: GridSquare[] = [];
 
-    for (let r = 0 ; r < this._grid.length; r++) {
-      const filteredSquares = _.filter(this._grid[r], function(tile: GridSquare) {
+    for (let r = 0; r < this._grid.length; r++) {
+      const filteredSquares = _.filter(this._grid[r], function (tile: GridSquare) {
         return tile.selected;
       });
 
@@ -89,7 +112,7 @@ export class GridLayoutComponent implements OnInit {
       }
     }
 
-    updatedTiles.forEach(function(tile: GridSquare) {
+    updatedTiles.forEach(function (tile: GridSquare) {
       tile.selected = false;
       tile.type = GridType.UNASSIGNED_TYPE;
       tile.assetURL = '';
