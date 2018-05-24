@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { GridModule } from './grid/grid.module';
 import { AppRoutes } from './app.routing';
-import { MapParser, ConnectionResolver } from './map-parser';
+import { MapParser, ConnectionResolver, SignalRService } from './map-parser';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { MapParser, ConnectionResolver } from './map-parser';
     GridModule,
     RouterModule.forRoot(AppRoutes)
   ],
-  providers: [ConnectionResolver],
+  providers: [ConnectionResolver, SignalRService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
