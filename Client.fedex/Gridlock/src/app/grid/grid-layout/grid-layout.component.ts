@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 import { GridSquare } from '../../models/grid-square.model';
+import { GridType } from '../../models/grid-type.model';
+
+import * as _ from 'lodash';
 
 
 @Component({
@@ -18,6 +21,8 @@ export class GridLayoutComponent implements OnInit {
 
   private _grid: GridSquare[][];
 
+  private _tileTypes = GridType;
+
   constructor() { }
 
   ngOnInit() {
@@ -33,7 +38,32 @@ export class GridLayoutComponent implements OnInit {
 
     this.menuItems = [];
 
-    this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass'});
+
+
+    this.menuItems.push({label: 'Assign Terrain', icon: 'fa-compass', items: [
+      {label: 'Land 1', styleClass: 'land1', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_01.png'); }}
+    ]});
+  }
+
+  setTile(gridType: GridType, asset: string) {
+
+    let updatedTiles: GridSquare[] = [];
+
+    for (let r = 0; r < this._grid.length; r++) {
+      const newArr = _.filter(this._grid[r], function(tile: GridSquare) {
+        return tile.selected;
+      });
+
+      if (newArr.length > 0) {
+        updatedTiles = updatedTiles.concat(newArr);
+      }
+    }
+
+    updatedTiles.forEach(function(tile: GridSquare) {
+      tile.selected = false;
+      tile.type = gridType;
+      tile.assetURL = asset;
+    });
   }
 
 }

@@ -2,7 +2,7 @@
 <div class="grid-container">
   <div class="tile-row" *ngFor="let row of _grid; let r = index">
     <div class="tile-container" *ngFor="let col of _grid[r]; let c = index">
-      <app-grid-square></app-grid-square>
+      <app-grid-square [tile]="_grid[r][c]"></app-grid-square>
     </div>
   </div>
   <br />
