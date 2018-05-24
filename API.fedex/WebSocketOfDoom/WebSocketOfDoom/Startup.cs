@@ -28,9 +28,10 @@ namespace WebSocketOfDoom
             services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
-                builder.AllowAnyMethod().AllowAnyHeader()
-                       .WithOrigins("http://localhost:55830")
-                       .AllowCredentials();
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:4200");
             }));
 
             services.AddSignalR();

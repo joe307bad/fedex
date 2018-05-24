@@ -6,6 +6,6 @@ export const AppRoutes: Route[] = [
     {
         path: '',
         component: GridLayoutComponent,
-        // resolve: { connection: ConnectionResolver }
+        resolve: { connection: ConnectionResolver }
     }
 ];
