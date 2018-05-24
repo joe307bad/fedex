@@ -17,6 +17,7 @@ namespace WebSocketOfDoom
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -24,16 +25,6 @@ namespace WebSocketOfDoom
             });
 
             services.AddMvc();
-
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .WithOrigins("http://localhost:4200");
-            }));
-
             services.AddSignalR();
         }
 
@@ -53,7 +44,7 @@ namespace WebSocketOfDoom
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseCors("CorsPolicy");
+            app.UseCors(config => config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseSignalR(routes =>
             {
                 routes.MapHub<MapDefinitionHub>("/mapDefinitionHub");

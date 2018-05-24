@@ -11,11 +11,7 @@ export class SignalRService {
   private connectionIsEstablished = false;
   private _hubConnection: HubConnection;
 
-  constructor() {
-    this.createConnection();
-    this.registerOnServerEvents();
-    // this.startConnection();
-  }
+  constructor() {  }
 
   sendChatMessage(message: any) {
     this._hubConnection.invoke('SendMessage', message);
@@ -23,11 +19,13 @@ export class SignalRService {
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl('CONFIGURATION.baseUrls.server' + 'coolmessages')
+      .withUrl('http://localhost:49467/mapDefinitionHub')
       .build();
   }
 
   startConnection(): Promise<void> {
+    this.createConnection();
+    this.registerOnServerEvents();
     return this._hubConnection
       .start()
       .then(() => {
@@ -42,24 +40,9 @@ export class SignalRService {
   }
 
   private registerOnServerEvents(): void {
-    this._hubConnection.on('FoodAdded', (data: any) => {
-      this.foodchanged.emit(data);
+    this._hubConnection.on('ReceiveMap', (data: any) => {
+      console.log(data);
     });
 
-    this._hubConnection.on('FoodDeleted', (data: any) => {
-      this.foodchanged.emit('this could be data');
-    });
-
-    this._hubConnection.on('FoodUpdated', (data: any) => {
-      this.foodchanged.emit('this could be data');
-    });
-
-    this._hubConnection.on('Send', (data: any) => {
-      // this.messageReceived.emit(data);
-    });
-
-    this._hubConnection.on('newCpuValue', (data: number) => {
-      this.newCpuValue.emit(data);
-    });
   }
 }
