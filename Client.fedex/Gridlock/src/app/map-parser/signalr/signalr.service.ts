@@ -41,7 +41,7 @@ export class SignalRService {
 
   private registerOnServerEvents(): void {
     this._hubConnection.on('broadcastMap', (data: any, message: any) => {
-      console.log(data);
+      console.log(message);
     });
     this._hubConnection.on('echo', (data: any) => {
       console.log(data);
