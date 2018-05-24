@@ -1,12 +1,16 @@
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { SignalRModule } from 'ng2-signalr';
+import { SignalRConfiguration } from 'ng2-signalr';
+
 import { Tile, MapLayout } from '../models';
-import { BehaviorSubject, Observable } from 'rxjs';
+
 
 export class MapParser {
 
     mapLayout: BehaviorSubject<MapLayout> = new BehaviorSubject({} as MapLayout);
 
     // websocket connection
-    mapStream: Observable<MapLayout> = Observable.of({} as MapLayout);
+    mapStream: Observable<MapLayout> = of({} as MapLayout);
 
     constructor() {
         this.mapLayout.subscribe(newLayout => {
