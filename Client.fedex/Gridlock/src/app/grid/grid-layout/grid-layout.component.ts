@@ -50,7 +50,9 @@ export class GridLayoutComponent implements OnInit {
         {label: 'Lava', styleClass: 'land5', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_05.png'); }},
         {label: 'Wood Chips', styleClass: 'land6', command: (event) => { this.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_06.png'); }}
       ]
-    });
+    },
+    {separator: true},
+  {label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.unassignTiles(); }});
   }
 
   setTile(gridType: GridType, asset: string) {
