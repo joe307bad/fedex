@@ -33,6 +33,8 @@ export class GridLayoutComponent implements OnInit {
 
       for (let c = 0; c < this.columns; c++) {
         this._grid[r][c] = new GridSquare();
+        this._grid[r][c].row = r;
+        this._grid[r][c].column = c;
       }
     }
 
