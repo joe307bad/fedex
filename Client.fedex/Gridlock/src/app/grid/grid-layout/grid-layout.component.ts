@@ -4,7 +4,7 @@ import { GridSquare } from '../../models/grid-square.model';
 @Component({
   selector: 'app-grid-layout',
   templateUrl: './grid-layout.component.html',
-  styleUrls: ['./grid-layout.component.css']
+  styleUrls: ['./grid-layout.component.less']
 })
 export class GridLayoutComponent implements OnInit {
 
