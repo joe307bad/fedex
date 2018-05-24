@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { GridSquare } from '../../models/grid-square.model';
+import { GridType } from '../../models/grid-type.model';
 
 @Component({
   selector: 'app-grid-square',
@@ -8,16 +10,20 @@ import { MenuItem } from 'primeng/api';
 })
 export class GridSquareComponent implements OnInit {
 
-  private _highlighted = false;
+  @Input('tile') tile: GridSquare;
+
   private _hover: boolean;
+
+  public gridTypes = GridType;
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
   select() {
-    this._highlighted = !this._highlighted;
+    this.tile.selected = !this.tile.selected;
   }
 
   highlight() {
