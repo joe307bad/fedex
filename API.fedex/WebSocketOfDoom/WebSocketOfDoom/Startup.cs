@@ -17,6 +17,11 @@ namespace WebSocketOfDoom
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddCors();
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -25,7 +30,8 @@ namespace WebSocketOfDoom
             });
 
             services.AddMvc();
-            services.AddSignalR();
+            services.AddSignalR()
+                .AddAzureSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -40,12 +46,25 @@ namespace WebSocketOfDoom
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            
+            app.UseCors(config => config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            if (env.IsDevelopment())
+            {
+
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseCors(config => config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
-            app.UseSignalR(routes =>
+            
+            app.UseFileServer();
+            app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<MapDefinitionHub>("/mapDefinitionHub");
             });
