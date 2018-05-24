@@ -5,9 +5,14 @@ namespace WebSocketOfDoom
 {
     public class MapDefinitionHub : Hub
     {
-        public async Task SendMap(string user, object map)
+        public void BroadcastMap(string name, object map)
         {
-            await Clients.All.SendAsync("ReceiveMap", user, map);
+            Clients.All.SendAsync("broadcastMap", name, map);
+        }
+
+        public void Echo(string name, object map)
+        {
+            Clients.Client(Context.ConnectionId).SendAsync("echo", name, map + " (echo from server)");
         }
     }
 }
