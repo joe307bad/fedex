@@ -32,7 +32,7 @@ export class GridService {
         }
     }
 
-    get(r: any) {
+    get() {
         return this._grid;
     }
 
@@ -47,7 +47,7 @@ export class GridService {
 
             if (newArr.length > 0) {
                 updatedTiles = updatedTiles.concat(newArr);
-                this.store.dispatch(new AugmentTileAction(newArr));
+                // this.store.dispatch(new AugmentTileAction(newArr));
                 // this.parser.newTilesStream.next(newArr);
             }
         }

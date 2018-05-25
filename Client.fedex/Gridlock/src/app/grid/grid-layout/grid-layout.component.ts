@@ -57,58 +57,7 @@ export class GridLayoutComponent implements OnInit {
           { label: 'Nom Nom', styleClass: 'avatar3', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_03.png'); } },
           { label: 'Stegocatus', styleClass: 'avatar4', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_04.png'); } },
         ]
-      },
-      { separator: true },
-      { label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.grid.unassignTiles(); } });
-  }
-
-  setTile(gridType: GridType, asset: string) {
-
-    let updatedTiles: GridSquare[] = [];
-
-    for (let r = 0; r < this.grid.rows; r++) {
-      const newArr = _.filter(this.grid[r], function (tile: GridSquare) {
-        return tile.selected;
       });
-
-      if (newArr.length > 0) {
-        updatedTiles = updatedTiles.concat(newArr);
-      }
-    }
-
-    updatedTiles.forEach(function (tile: GridSquare) {
-      tile.selected = false;
-
-      if (gridType === GridType.TERRAIN_TYPE) {
-        tile.backgroundAssetURL = asset;
-        tile.backgroundType = gridType;
-      } else {
-        tile.type = gridType;
-        tile.assetURL = asset;
-      }
-    });
-  }
-
-  unassignTiles() {
-    let updatedTiles: GridSquare[] = [];
-
-    for (let r = 0; r < this.grid.rows; r++) {
-      const filteredSquares = _.filter(this.grid[r], function (tile: GridSquare) {
-        return tile.selected;
-      });
-
-      if (filteredSquares.length > 0) {
-        updatedTiles = updatedTiles.concat(filteredSquares);
-      }
-    }
-
-    updatedTiles.forEach(function (tile: GridSquare) {
-      tile.selected = false;
-      tile.type = GridType.UNASSIGNED_TYPE;
-      tile.backgroundType = GridType.UNASSIGNED_TYPE;
-      tile.assetURL = '';
-      tile.backgroundAssetURL = '';
-    });
   }
 
 }
