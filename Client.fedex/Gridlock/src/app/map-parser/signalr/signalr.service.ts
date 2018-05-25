@@ -30,7 +30,7 @@ export class SignalRService {
 
   private createConnection() {
     this._hubConnection = new HubConnectionBuilder()
-      .withUrl('http://localhost:5000/mapDefinitionHub')
+      .withUrl('http://webapplication120180525124618.azurewebsites.net/mapDefinitionHub')
       .build();
   }
 
