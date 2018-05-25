@@ -1,5 +1,5 @@
-import { Character } from "./character.model";
-import { Tile } from "./tile.model";
+import { Character } from './character.model';
+import { Tile } from './tile.model';
 
 export interface MapLayout {
     characters: Character[];

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { GridModule } from './grid/grid.module';
 import { AppRoutes } from './app.routing';
 import { MapParser, ConnectionResolver, SignalRService } from './map-parser';
+import { GridService } from './grid/grid.service';
 import { gridSquareReducer } from './reducers/grid-square.reducers';
 import { GridSquareEffects } from './effects/grid-square.effects';
 
@@ -24,7 +25,8 @@ import { GridSquareEffects } from './effects/grid-square.effects';
     EffectsModule.forRoot([GridSquareEffects]),
     StoreDevtoolsModule.instrument()
   ],
-  providers: [ConnectionResolver, SignalRService],
+  exports: [],
+  providers: [MapParser, GridService, ConnectionResolver, SignalRService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
