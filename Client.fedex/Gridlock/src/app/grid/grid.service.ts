@@ -12,7 +12,7 @@ import { AugmentTileAction } from '../actions/grid-square.actions';
 export class GridService {
 
     rows = 10;
-    columns = 10;
+    columns = 20;
 
     private _grid: GridSquare[][];
     private _tileTypes = GridType;
@@ -54,9 +54,14 @@ export class GridService {
 
         updatedTiles.forEach(function (tile: GridSquare) {
             tile.selected = false;
-            tile.type = gridType;
-            tile.assetURL = asset;
-        });
+            if (gridType === GridType.TERRAIN_TYPE) {
+              tile.backgroundAssetURL = asset;
+              tile.backgroundType = gridType;
+            } else {
+              tile.type = gridType;
+              tile.assetURL = asset;
+            }
+          });
     }
 
     setSingleTile(tile: GridSquare) {
@@ -67,21 +72,22 @@ export class GridService {
         let updatedTiles: GridSquare[] = [];
 
         for (let r = 0; r < this._grid.length; r++) {
-            const filteredSquares = _.filter(this._grid[r], function (tile: GridSquare) {
-                return tile.selected;
-            });
+          const filteredSquares = _.filter(this._grid[r], function (tile: GridSquare) {
+            return tile.selected;
+          });
 
-            if (filteredSquares.length > 0) {
-                updatedTiles = updatedTiles.concat(filteredSquares);
-            }
+          if (filteredSquares.length > 0) {
+            updatedTiles = updatedTiles.concat(filteredSquares);
+          }
         }
 
         updatedTiles.forEach(function (tile: GridSquare) {
-            tile.selected = false;
-            tile.type = GridType.UNASSIGNED_TYPE;
-            tile.assetURL = '';
+          tile.selected = false;
+          tile.type = GridType.UNASSIGNED_TYPE;
+          tile.backgroundType = GridType.UNASSIGNED_TYPE;
+          tile.assetURL = '';
+          tile.backgroundAssetURL = '';
         });
-
     }
 
     getAllAssignedTiles() {

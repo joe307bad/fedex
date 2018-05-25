@@ -39,25 +39,25 @@ export class GridLayoutComponent implements OnInit {
         { label: 'Wood Chips', styleClass: 'land6', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/land_06.png'); } }
       ]
     },
-      { separator: true },
-      { label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.grid.unassignTiles(); } },
       {
         label: 'Assign Monster',
         items: [
-          { label: 'Plushie Kappa', styleClass: 'mon1', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_01.png'); } },
-          { label: 'Yellow Applemon', styleClass: 'mon2', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_02.png'); } },
-          { label: 'Red Applemon', styleClass: 'mon3', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/monster_03.png'); } }
+          { label: 'Plushie Kappa', styleClass: 'mon1', command: (event) => { this.grid.setTile(this._tileTypes.MONSTER_TYPE, './assets/monster_01.png'); } },
+          { label: 'Yellow Applemon', styleClass: 'mon2', command: (event) => { this.grid.setTile(this._tileTypes.MONSTER_TYPE, './assets/monster_02.png'); } },
+          { label: 'Red Applemon', styleClass: 'mon3', command: (event) => { this.grid.setTile(this._tileTypes.MONSTER_TYPE, './assets/monster_03.png'); } }
         ]
       },
       {
         label: 'Assign Player',
         items: [
-          { label: 'Fancy Gent', styleClass: 'avatar1', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_01.png'); } },
-          { label: 'Unicorn', styleClass: 'avatar2', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_02.png'); } },
-          { label: 'Nom Nom', styleClass: 'avatar3', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_03.png'); } },
-          { label: 'Stegocatus', styleClass: 'avatar4', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_04.png'); } },
+          { label: 'Fancy Gent', styleClass: 'avatar1', command: (event) => { this.grid.setTile(this._tileTypes.AVATAR_TYPE, './assets/avatar_01.png'); } },
+          { label: 'Unicorn', styleClass: 'avatar2', command: (event) => { this.grid.setTile(this._tileTypes.AVATAR_TYPE, './assets/avatar_02.png'); } },
+          { label: 'Nom Nom', styleClass: 'avatar3', command: (event) => { this.grid.setTile(this._tileTypes.AVATAR_TYPE, './assets/avatar_03.png'); } },
+          { label: 'Stegocatus', styleClass: 'avatar4', command: (event) => { this.grid.setTile(this._tileTypes.AVATAR_TYPE, './assets/avatar_04.png'); } },
         ]
-      });
+      },
+      { separator: true },
+      { label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.grid.unassignTiles(); } });
   }
 
 }
