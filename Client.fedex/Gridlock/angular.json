@@ -78,7 +78,10 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.less",
+              "./node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/primeng/resources/themes/omega/theme.css",
+              "./node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [],
             "assets": [
