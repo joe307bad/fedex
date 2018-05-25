@@ -8,6 +8,8 @@ import { GridType } from '../../models/grid-type.model';
 
 import * as _ from 'lodash';
 import { GridService } from '../grid.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../models/app-state.model';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class GridLayoutComponent implements OnInit {
   public menuItems: MenuItem[];
   private _tileTypes = GridType;
 
-  constructor(private route: ActivatedRoute, public grid: GridService) { }
+  constructor(private route: ActivatedRoute, public grid: GridService, private _store: Store<AppState>) { }
 
   ngOnInit() {
 
@@ -55,7 +57,9 @@ export class GridLayoutComponent implements OnInit {
           { label: 'Nom Nom', styleClass: 'avatar3', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_03.png'); } },
           { label: 'Stegocatus', styleClass: 'avatar4', command: (event) => { this.grid.setTile(this._tileTypes.TERRAIN_TYPE, './assets/avatar_04.png'); } },
         ]
-      });
+      },
+      { separator: true },
+      { label: 'Clear Selected Tiles', icon: 'fa-eraser', command: (event) => { this.grid.unassignTiles(); } });
   }
 
 }
