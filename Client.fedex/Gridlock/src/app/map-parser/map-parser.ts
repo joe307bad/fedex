@@ -1,20 +1,26 @@
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SignalRModule } from 'ng2-signalr';
 import { SignalRConfiguration } from 'ng2-signalr';
+import { Injectable } from '@angular/core';
 
 import { Tile, MapLayout } from '../models';
+import { SignalRService } from './signalr/signalr.service';
+import { GridSquare } from '../models/grid-square.model';
 
-
+@Injectable()
 export class MapParser {
 
-    mapLayout: BehaviorSubject<MapLayout> = new BehaviorSubject({} as MapLayout);
+    newTilesStream: BehaviorSubject<GridSquare[]> = new BehaviorSubject([]);
 
     // websocket connection
     mapStream: Observable<MapLayout> = of({} as MapLayout);
 
-    constructor() {
-        this.mapLayout.subscribe(newLayout => {
+    constructor(private signalr: SignalRService) {
+        this.newTilesStream.subscribe(newTiles => {
             // post to websocket server
+            if (newTiles.length) {
+                this.signalr.sendMessage(newTiles);
+            }
         });
 
         this.mapStream.subscribe(mapRequest => {
@@ -23,6 +29,10 @@ export class MapParser {
             // check if new request contains a user tile that conflicts with current user tile
             // update map with new layout
         });
+    }
+
+    setTiles() {
+
     }
 
     augmentMapTile(tile: Tile): void {

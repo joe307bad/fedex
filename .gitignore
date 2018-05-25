@@ -1,2 +1,5 @@
-Client.fedex/Gridlock/node_modules/
 API.fedex/WebSocketOfDoom/.vs/
+Client.fedex/Gridlock/node_modules/
+API.fedex/WebSocketOfDoom/node_modules/
+API.fedex/WebSocketOfDoom/WebSocketOfDoom/bin/
+API.fedex/WebSocketOfDoom/WebSocketOfDoom/obj/
