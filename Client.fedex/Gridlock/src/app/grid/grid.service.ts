@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { Store } from '@ngrx/store';
 
 import { GridSquare } from '../models/grid-square.model';
 import { GridType } from '../models/grid-type.model';
+import { AppState } from '../models/app-state.model';
+import { AugmentTileAction } from '../actions/grid-square.actions';
 
 
 @Injectable()
@@ -14,7 +17,7 @@ export class GridService {
     private _grid: GridSquare[][];
     private _tileTypes = GridType;
 
-    constructor() {
+    constructor(private store: Store<AppState>) {
 
         this._grid = [];
 
@@ -44,6 +47,7 @@ export class GridService {
 
             if (newArr.length > 0) {
                 updatedTiles = updatedTiles.concat(newArr);
+                this.store.dispatch(new AugmentTileAction(newArr));
                 // this.parser.newTilesStream.next(newArr);
             }
         }
@@ -53,6 +57,10 @@ export class GridService {
             tile.type = gridType;
             tile.assetURL = asset;
         });
+    }
+
+    setSingleTile(tile: GridSquare) {
+        this._grid[tile.row][tile.column] = tile;
     }
 
     unassignTiles() {

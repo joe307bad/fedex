@@ -62,7 +62,7 @@ export class SignalRService {
           && !message.forNewUser
           && message.tiles.length) {
 
-          message.tiles.foreach(tile => this.grid.setTile(tile.type, tile));
+          message.tiles.forEach(tile => this.grid.setTile(tile.type, tile));
           return false;
         }
 
@@ -76,7 +76,7 @@ export class SignalRService {
         // populate with all tiles
         if (this.isNewUser && message.forNewUser) {
           this.isNewUser = false;
-          message.tiles.foreach(tile => this.grid.setTile(tile.type, tile));
+          message.tiles.forEach(tile => this.grid.setSingleTile(tile));
           return false;
         }
 
