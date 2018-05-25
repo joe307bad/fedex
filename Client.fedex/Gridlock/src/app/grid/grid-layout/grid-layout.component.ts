@@ -98,8 +98,14 @@ export class GridLayoutComponent implements OnInit {
 
     updatedTiles.forEach(function (tile: GridSquare) {
       tile.selected = false;
-      tile.type = gridType;
-      tile.assetURL = asset;
+
+      if (gridType === GridType.TERRAIN_TYPE) {
+        tile.backgroundAssetURL = asset;
+        tile.backgroundType = gridType;
+      } else {
+        tile.type = gridType;
+        tile.assetURL = asset;
+      }
     });
   }
 
@@ -119,7 +125,9 @@ export class GridLayoutComponent implements OnInit {
     updatedTiles.forEach(function (tile: GridSquare) {
       tile.selected = false;
       tile.type = GridType.UNASSIGNED_TYPE;
+      tile.backgroundType = GridType.UNASSIGNED_TYPE;
       tile.assetURL = '';
+      tile.backgroundAssetURL = '';
     });
 
   }
