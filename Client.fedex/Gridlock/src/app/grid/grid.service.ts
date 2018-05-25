@@ -47,21 +47,21 @@ export class GridService {
 
             if (newArr.length > 0) {
                 updatedTiles = updatedTiles.concat(newArr);
-                // this.store.dispatch(new AugmentTileAction(newArr));
-                // this.parser.newTilesStream.next(newArr);
             }
         }
 
         updatedTiles.forEach(function (tile: GridSquare) {
             tile.selected = false;
             if (gridType === GridType.TERRAIN_TYPE) {
-              tile.backgroundAssetURL = asset;
-              tile.backgroundType = gridType;
+                tile.backgroundAssetURL = asset;
+                tile.backgroundType = gridType;
             } else {
-              tile.type = gridType;
-              tile.assetURL = asset;
+                tile.type = gridType;
+                tile.assetURL = asset;
             }
-          });
+        });
+
+        this.store.dispatch(new AugmentTileAction(updatedTiles));
     }
 
     setSingleTile(tile: GridSquare) {
@@ -72,26 +72,29 @@ export class GridService {
         let updatedTiles: GridSquare[] = [];
 
         for (let r = 0; r < this._grid.length; r++) {
-          const filteredSquares = _.filter(this._grid[r], function (tile: GridSquare) {
-            return tile.selected;
-          });
+            const filteredSquares = _.filter(this._grid[r], function (tile: GridSquare) {
+                return tile.selected;
+            });
 
-          if (filteredSquares.length > 0) {
-            updatedTiles = updatedTiles.concat(filteredSquares);
-          }
+            if (filteredSquares.length > 0) {
+                updatedTiles = updatedTiles.concat(filteredSquares);
+            }
         }
 
         updatedTiles.forEach(function (tile: GridSquare) {
-          tile.selected = false;
-          tile.type = GridType.UNASSIGNED_TYPE;
-          tile.backgroundType = GridType.UNASSIGNED_TYPE;
-          tile.assetURL = '';
-          tile.backgroundAssetURL = '';
+            tile.selected = false;
+            tile.type = GridType.UNASSIGNED_TYPE;
+            tile.backgroundType = GridType.UNASSIGNED_TYPE;
+            tile.assetURL = '';
+            tile.backgroundAssetURL = '';
         });
+
+        this.store.dispatch(new AugmentTileAction(updatedTiles));
     }
 
     getAllAssignedTiles() {
-        return _.filter(_.flatten(this._grid), square => square.selected);
+        return _.filter(_.flatten(this._grid),
+            square => square.assetURL !== '' || square.backgroundAssetURL !== '');
     }
 
 }
